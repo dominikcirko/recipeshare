@@ -1,15 +1,13 @@
 package hr.algebra.recipeshare.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    @Setter(AccessLevel.NONE)
     private Long id;
     private String username;
     private String email;

@@ -17,6 +17,9 @@ public class RecipeEntity extends AbstractEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
+    @Transient
+    private Long userId;
+
     @Column(nullable = false)
     private String title;
 

@@ -15,6 +15,7 @@ import java.time.Instant;
 public abstract class AbstractEntity implements SoftDeletableEntity {
 
     @Id
+    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -26,4 +27,14 @@ public abstract class AbstractEntity implements SoftDeletableEntity {
     private Instant updatedAt;
     @Column(name = "deleted_at")
     private Instant deletedAt;
+
+    @Override
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    @Override
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 }

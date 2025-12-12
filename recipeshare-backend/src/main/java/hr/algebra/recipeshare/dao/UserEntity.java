@@ -1,5 +1,6 @@
 package hr.algebra.recipeshare.dao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hr.algebra.common.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,10 +14,10 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class UserEntity extends AbstractEntity {
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name = "password_hash", nullable = false)
@@ -27,4 +28,5 @@ public class UserEntity extends AbstractEntity {
 
     @Column(name = "avatar_url")
     private String avatarUrl;
+
 }

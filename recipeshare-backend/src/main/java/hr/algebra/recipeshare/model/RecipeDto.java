@@ -1,6 +1,5 @@
 package hr.algebra.recipeshare.model;
 
-import hr.algebra.recipeshare.dao.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RecipeDto {
     private Long id;
-    private UserEntity user;
+    private Long userId;
     private String title;
     private String description;
     private String instructions;

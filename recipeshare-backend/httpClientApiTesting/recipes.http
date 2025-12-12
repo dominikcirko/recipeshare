@@ -1,0 +1,42 @@
+### create Recipe
+POST http://localhost:8080/api/recipe
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "Chicken Pasta",
+  "description": "Creamy chicken pasta with garlic sauce",
+  "instructions": "Boil pasta, cook chicken, mix sauce, combine.",
+  "cookTimeMinutes": 25,
+  "ingredients": "chicken, pasta, garlic, cream, parmesan",
+  "calories": 650,
+  "protein": 40,
+  "fat": 20,
+  "carbs": 70
+}
+
+
+### get recipe by id
+GET http://localhost:8080/api/recipe/1
+Accept: application/json
+
+### update recipe
+PUT http://localhost:8080/api/recipe/1
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "Chicken Pasta Deluxe",
+  "description": "Improved recipe with basil and cherry tomatoes",
+  "instructions": "Same as before, but add basil and tomatoes.",
+  "cookTimeMinutes": 30,
+  "ingredients": "chicken, pasta, garlic, cream, parmesan, basil, tomatoes",
+  "calories": 700,
+  "protein": 45,
+  "fat": 22,
+  "carbs": 75
+}
+
+
+### delete recipe
+DELETE http://localhost:8080/api/recipe/1

@@ -1,0 +1,28 @@
+<form (ngSubmit)="submitForm()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="recipe.title" name="title" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="recipe.description" name="description">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Ingredients</mat-label>
+    <textarea matInput [(ngModel)]="recipe.ingredients" name="ingredients" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Instructions</mat-label>
+    <textarea matInput [(ngModel)]="recipe.instructions" name="instructions" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Cook Time (minutes)</mat-label>
+    <input matInput type="number" [(ngModel)]="recipe.cookTimeMinutes" name="cookTime">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Save</button>
+</form>

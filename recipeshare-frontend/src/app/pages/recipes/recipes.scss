@@ -1,0 +1,21 @@
+mat-card {
+  max-width: 600px;
+}
+
+mat-card {
+  max-width: 600px;
+  margin: 16px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+mat-card-title a {
+  text-decoration: none;
+  color: #3f51b5;
+  font-size: 1.2rem;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}

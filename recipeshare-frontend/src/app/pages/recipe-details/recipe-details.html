@@ -1,0 +1,18 @@
+<div *ngIf="recipe">
+  <mat-card>
+    <mat-card-title>{{ recipe.title }}</mat-card-title>
+    <mat-card-content>
+      <p><strong>Description:</strong> {{ recipe.description }}</p>
+      <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+      <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+      <p *ngIf="recipe.cookTimeMinutes"><strong>Cook Time:</strong> {{ recipe.cookTimeMinutes }} min</p>
+      <p *ngIf="recipe.calories"><strong>Calories:</strong> {{ recipe.calories }}</p>
+      <p *ngIf="recipe.protein"><strong>Protein:</strong> {{ recipe.protein }}g</p>
+      <p *ngIf="recipe.fat"><strong>Fat:</strong> {{ recipe.fat }}g</p>
+      <p *ngIf="recipe.carbs"><strong>Carbs:</strong> {{ recipe.carbs }}g</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="router.navigate(['/recipes'])">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

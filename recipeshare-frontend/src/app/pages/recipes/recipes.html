@@ -1,0 +1,33 @@
+<h2>My Recipes</h2>
+
+<button mat-raised-button color="primary" (click)="createRecipe()">Create New Recipe</button>
+
+
+<!-- Recipe Form -->
+<div *ngIf="showForm">
+  <app-recipe-form [recipe]="editingRecipe!" (save)="saveRecipe($event)"></app-recipe-form>
+  <button mat-button (click)="cancelForm()">Cancel</button>
+</div>
+
+<!-- No recipes message -->
+<div *ngIf="!showForm && recipes.length === 0">No recipes found.</div>
+
+<!-- Recipe list -->
+<ng-container *ngIf="!showForm">
+  <div *ngFor="let recipe of recipes">
+    <mat-card style="margin-bottom: 16px">
+      <mat-card-title>
+  <a [routerLink]="['/recipes', recipe.id]">{{ recipe.title }}</a>
+</mat-card-title>
+      <mat-card-content>
+        <p>{{ recipe.description }}</p>
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+        <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="editRecipe(recipe)">Edit</button>
+        <button mat-button color="warn" (click)="deleteRecipe(recipe)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>

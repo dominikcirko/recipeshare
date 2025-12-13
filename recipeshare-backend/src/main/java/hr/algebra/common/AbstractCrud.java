@@ -24,7 +24,7 @@ public abstract class AbstractCrud<E, DTO> {
     @Transactional
     public DTO create(DTO dto) {
         E entity = mapper.dtoToEntity(dto);
-        this.preCreate(entity);
+        this.preCreate(entity, dto);
         E saved = baseRepository.save(entity);
         return mapper.toDto(saved);
     }
@@ -55,7 +55,7 @@ public abstract class AbstractCrud<E, DTO> {
         return existing;
     }
 
-    protected void preCreate(E entity) {
+    protected void preCreate(E entity, DTO dto) {
         // intentionally empty
     }
     protected void preUpdate(E entity) {

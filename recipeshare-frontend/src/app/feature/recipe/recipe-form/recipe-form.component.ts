@@ -14,6 +14,7 @@ import { Recipe } from '../recipe.model';
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
   isEditMode = false;
+  isViewMode = false;
   recipeId?: number;
   isSubmitting = false;
 
@@ -37,9 +38,12 @@ export class RecipeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const url = this.router.url;
+    this.isViewMode = url.includes('/view/');
+
     this.route.params.subscribe(params => {
       if (params['id']) {
-        this.isEditMode = true;
+        this.isEditMode = url.includes('/edit/');
         this.recipeId = +params['id'];
         this.loadRecipe(this.recipeId);
       }
@@ -50,10 +54,38 @@ export class RecipeFormComponent implements OnInit {
     this.recipeService.getById(id).subscribe({
       next: (recipe) => {
         this.recipeForm.patchValue(recipe);
+
+        if (this.isViewMode) {
+          this.recipeForm.disable();
+        }
       },
       error: (error) => {
         console.error('Error loading recipe:', error);
         alert('Failed to load recipe');
+      }
+    });
+  }
+
+  onEdit(): void {
+    if (this.recipeId) {
+      this.router.navigate(['/recipes/edit', this.recipeId]);
+    }
+  }
+
+  onDelete(): void {
+    if (!this.recipeId) return;
+
+    const confirmed = confirm('Are you sure you want to delete this recipe? This action cannot be undone.');
+    if (!confirmed) return;
+
+    this.recipeService.delete(this.recipeId).subscribe({
+      next: () => {
+        console.log('Recipe deleted successfully');
+        this.router.navigate(['/recipes']);
+      },
+      error: (error) => {
+        console.error('Error deleting recipe:', error);
+        alert(`Failed to delete recipe: ${error.error?.message || error.message || 'Unknown error'}`);
       }
     });
   }
@@ -73,7 +105,11 @@ export class RecipeFormComponent implements OnInit {
       operation.subscribe({
         next: (response) => {
           console.log('Recipe saved successfully:', response);
-          this.router.navigate(['/recipes']);
+          if (this.isEditMode && this.recipeId) {
+            this.router.navigate(['/recipes/view', this.recipeId]);
+          } else {
+            this.router.navigate(['/recipes']);
+          }
         },
         error: (error) => {
           console.error('Error saving recipe:', error);
@@ -93,7 +129,11 @@ export class RecipeFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/recipes']);
+    if (this.isEditMode && this.recipeId) {
+      this.router.navigate(['/recipes/view', this.recipeId]);
+    } else {
+      this.router.navigate(['/recipes']);
+    }
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {

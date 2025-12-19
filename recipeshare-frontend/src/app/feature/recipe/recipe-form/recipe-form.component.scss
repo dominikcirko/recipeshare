@@ -3,16 +3,49 @@
   margin: 2rem auto;
   padding: 0;
 
-  h2 {
+  .recipe-header {
     background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
-    color: white;
     padding: 2rem;
     margin: 0 0 2rem 0;
     border-radius: 8px 8px 0 0;
-    font-size: 1.75rem;
-    font-weight: 700;
-    text-align: center;
     box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 0;
+      flex: 1;
+    }
+
+    .btn-delete {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      font-size: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: white;
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(1);
+      }
+    }
   }
 
   h3 {
@@ -178,9 +211,18 @@
   .recipe-form-container {
     margin: 1rem;
 
-    h2 {
-      font-size: 1.5rem;
+    .recipe-header {
       padding: 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .btn-delete {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+      }
     }
 
     form {
@@ -207,9 +249,18 @@
 
 @media (max-width: 540px) {
   .recipe-form-container {
-    h2 {
-      font-size: 1.25rem;
+    .recipe-header {
       padding: 1.25rem;
+
+      h2 {
+        font-size: 1.25rem;
+      }
+
+      .btn-delete {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+      }
     }
 
     form {

@@ -1,1 +1,210 @@
-<p>recipe-form works!</p>
+<div class="recipe-form-container">
+  <div class="recipe-header">
+    <h2>{{ isViewMode ? recipeForm.get('title')?.value : (isEditMode ? 'Edit Recipe' : 'Create New Recipe') }}</h2>
+    @if (isViewMode && recipeId) {
+      <button type="button" class="btn-delete" (click)="onDelete()" title="Delete Recipe">
+        🗑️
+      </button>
+    }
+  </div>
+
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title <span class="required">*</span></label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-control"
+        [class.error]="recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched"
+        placeholder="Enter recipe title"
+      />
+      @if (recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched) {
+        <div class="error-message">
+          @if (recipeForm.get('title')?.errors?.['required']) {
+            <span>Title is required</span>
+          }
+          @if (recipeForm.get('title')?.errors?.['maxlength']) {
+            <span>Title must be less than 255 characters</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        rows="3"
+        placeholder="Brief description of your recipe"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="ingredients">Ingredients</label>
+      <textarea
+        id="ingredients"
+        formControlName="ingredients"
+        class="form-control"
+        rows="5"
+        placeholder="List your ingredients (one per line)"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="instructions">Instructions</label>
+      <textarea
+        id="instructions"
+        formControlName="instructions"
+        class="form-control"
+        rows="8"
+        placeholder="Step-by-step cooking instructions"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="cookTimeMinutes">Cook Time (minutes)</label>
+      <input
+        type="number"
+        id="cookTimeMinutes"
+        formControlName="cookTimeMinutes"
+        class="form-control"
+        [class.error]="recipeForm.get('cookTimeMinutes')?.invalid && recipeForm.get('cookTimeMinutes')?.touched"
+        placeholder="Total cooking time in minutes"
+        min="1"
+      />
+      @if (recipeForm.get('cookTimeMinutes')?.invalid && recipeForm.get('cookTimeMinutes')?.touched) {
+        <div class="error-message">
+          @if (recipeForm.get('cookTimeMinutes')?.errors?.['min']) {
+            <span>Cook time must be at least 1 minute</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="nutrition-section">
+      <h3>Nutritional Information (Optional)</h3>
+
+      <div class="nutrition-grid">
+        <div class="form-group">
+          <label for="calories">Calories</label>
+          <input
+            type="number"
+            id="calories"
+            formControlName="calories"
+            class="form-control"
+            [class.error]="recipeForm.get('calories')?.invalid && recipeForm.get('calories')?.touched"
+            placeholder="0"
+            min="0"
+          />
+          @if (recipeForm.get('calories')?.invalid && recipeForm.get('calories')?.touched) {
+            <div class="error-message">
+              @if (recipeForm.get('calories')?.errors?.['min']) {
+                <span>Calories cannot be negative</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="protein">Protein (g)</label>
+          <input
+            type="number"
+            id="protein"
+            formControlName="protein"
+            class="form-control"
+            [class.error]="recipeForm.get('protein')?.invalid && recipeForm.get('protein')?.touched"
+            placeholder="0"
+            min="0"
+          />
+          @if (recipeForm.get('protein')?.invalid && recipeForm.get('protein')?.touched) {
+            <div class="error-message">
+              @if (recipeForm.get('protein')?.errors?.['min']) {
+                <span>Protein cannot be negative</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="fat">Fat (g)</label>
+          <input
+            type="number"
+            id="fat"
+            formControlName="fat"
+            class="form-control"
+            [class.error]="recipeForm.get('fat')?.invalid && recipeForm.get('fat')?.touched"
+            placeholder="0"
+            min="0"
+          />
+          @if (recipeForm.get('fat')?.invalid && recipeForm.get('fat')?.touched) {
+            <div class="error-message">
+              @if (recipeForm.get('fat')?.errors?.['min']) {
+                <span>Fat cannot be negative</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="carbs">Carbs (g)</label>
+          <input
+            type="number"
+            id="carbs"
+            formControlName="carbs"
+            class="form-control"
+            [class.error]="recipeForm.get('carbs')?.invalid && recipeForm.get('carbs')?.touched"
+            placeholder="0"
+            min="0"
+          />
+          @if (recipeForm.get('carbs')?.invalid && recipeForm.get('carbs')?.touched) {
+            <div class="error-message">
+              @if (recipeForm.get('carbs')?.errors?.['min']) {
+                <span>Carbs cannot be negative</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (isViewMode) {
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onCancel()"
+        >
+          Back to List
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onEdit()"
+        >
+          Edit Recipe
+        </button>
+      </div>
+    } @else {
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onCancel()"
+          [disabled]="isSubmitting"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSubmitting || recipeForm.invalid"
+        >
+          {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Recipe' : 'Create Recipe') }}
+        </button>
+      </div>
+    }
+  </form>
+</div>

@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RecipeMapper extends GenericMapper<RecipeDto, RecipeEntity> {
 
@@ -21,4 +23,7 @@ public interface RecipeMapper extends GenericMapper<RecipeDto, RecipeEntity> {
 
     @Override
     void updateEntityFromDto(RecipeDto dto, @MappingTarget RecipeEntity entity);
+
+    List<RecipeDto> toDtoList(List<RecipeEntity> entities);
+
 }

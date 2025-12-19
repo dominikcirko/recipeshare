@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/recipe")
 public class RecipeController {
@@ -17,6 +19,15 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService, RecipeMapper recipeMapper) {
         this.recipeService = recipeService;
         this.recipeMapper = recipeMapper;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<RecipeDto>> getAllByUserId(@PathVariable Long id) {
+        List<RecipeDto> recipes = recipeService.getAllByUserId(id);
+        if (recipes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
     }
 
     @GetMapping("/{id}")

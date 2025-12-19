@@ -9,15 +9,26 @@ import hr.algebra.recipeshare.mapper.RecipeMapper;
 import hr.algebra.recipeshare.model.RecipeDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RecipeService extends AbstractCrud<RecipeEntity, RecipeDto> {
 
     private final UserJpaRepository userJpaRepository;
+    private final RecipeJpaRepository recipeJpaRepository;
+    private final RecipeMapper recipeMapper;
 
     public RecipeService(RecipeJpaRepository repository, RecipeMapper mapper,
-                         UserJpaRepository userJpaRepository) {
+                         UserJpaRepository userJpaRepository, RecipeJpaRepository recipeJpaRepository, RecipeMapper recipeMapper) {
         super(repository, mapper);
         this.userJpaRepository = userJpaRepository;
+        this.recipeJpaRepository = recipeJpaRepository;
+        this.recipeMapper = recipeMapper;
+    }
+
+    public List<RecipeDto> getAllByUserId(Long userId) {
+        List<RecipeEntity> entities = recipeJpaRepository.getAllByUserId(userId);
+        return recipeMapper.toDtoList(entities);
     }
 
     @Override

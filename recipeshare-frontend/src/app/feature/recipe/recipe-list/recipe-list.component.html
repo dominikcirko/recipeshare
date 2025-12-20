@@ -1,1 +1,62 @@
-<p>recipe-list works!</p>
+<div class="recipe-list-container">
+  <div class="recipe-list-header">
+    <h1>My Recipes</h1>
+    <button class="btn-create-new" (click)="onCreateNew()">
+      + Create New Recipe
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <p>Loading recipes...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error-state">
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="loadRecipes()">Retry</button>
+    </div>
+  }
+
+  @if (!isLoading && !error && recipes.length === 0) {
+    <div class="empty-state">
+      <p>No recipes found</p>
+      <button class="btn-create-new" (click)="onCreateNew()">
+        Create Your First Recipe
+      </button>
+    </div>
+  }
+
+  @if (!isLoading && !error && recipes.length > 0) {
+    <div class="recipe-grid">
+      @for (recipe of recipes; track recipe.id) {
+        <div class="recipe-card" (click)="onRecipeClick(recipe.id!)">
+          <div class="recipe-image-placeholder">
+            <span class="image-icon">🍽️</span>
+          </div>
+
+          <div class="recipe-card-content">
+            <h3 class="recipe-title">{{ recipe.title }}</h3>
+
+            <div class="recipe-meta">
+              @if (recipe.cookTimeMinutes) {
+                <div class="meta-item">
+                  <span class="meta-icon">⏱️</span>
+                  <span>{{ recipe.cookTimeMinutes }} min</span>
+                </div>
+              }
+
+              @if (recipe.calories) {
+                <div class="meta-item">
+                  <span class="meta-icon">🔥</span>
+                  <span>{{ recipe.calories }} cal</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,4 +1,5 @@
 package hr.algebra.common.operations;
 
-public interface Updateable {
+public interface Updatable<DTO> {
+    DTO update(Long id, DTO dto);
 }

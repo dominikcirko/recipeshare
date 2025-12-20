@@ -1,12 +1,15 @@
 package hr.algebra.common;
 
+import hr.algebra.common.operations.Creatable;
+import hr.algebra.common.operations.Readable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
 
-public abstract class AbstractCrud<E, DTO> {
+public abstract class AbstractCrud<E, DTO> implements
+        Readable<DTO>, Creatable<DTO> {
 
     private final JpaRepository<E, Long> baseRepository;
     private final GenericMapper<DTO, E> mapper;

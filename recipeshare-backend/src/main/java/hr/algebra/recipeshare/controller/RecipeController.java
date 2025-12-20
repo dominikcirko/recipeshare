@@ -21,7 +21,7 @@ public class RecipeController {
         this.recipeMapper = recipeMapper;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<List<RecipeDto>> getAllByUserId(@PathVariable Long id) {
         List<RecipeDto> recipes = recipeService.getAllByUserId(id);
         if (recipes.isEmpty()) {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
+import { LoginService } from '../../user/login-form/login.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -18,6 +19,7 @@ export class RecipeListComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
+    private loginService: LoginService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -30,16 +32,17 @@ export class RecipeListComponent implements OnInit {
     this.isLoading = true;
     this.error = null;
 
-    // TODO: Replace with actual userId from auth service
-    const recipeIds = [1, 2, 3];
+    const userId = this.loginService.getCurrentUserId();
+    
+    if (!userId) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
-    this.recipeService.getRecipesByIds(recipeIds).subscribe({
+    this.recipeService.getRecipesByUserId(userId).subscribe({
       next: (recipes) => {
-        console.log('Recipes loaded successfully:', recipes);
-        console.log('Number of recipes:', recipes.length);
         this.recipes = recipes;
         this.isLoading = false;
-        console.log('isLoading set to false, recipes:', this.recipes);
         this.cdr.detectChanges();
       },
       error: (error) => {

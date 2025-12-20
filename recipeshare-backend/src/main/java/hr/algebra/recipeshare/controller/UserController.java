@@ -1,6 +1,8 @@
 package hr.algebra.recipeshare.controller;
 
 import hr.algebra.recipeshare.mapper.UserMapper;
+import hr.algebra.recipeshare.model.LoginRequest;
+import hr.algebra.recipeshare.model.LoginResponse;
 import hr.algebra.recipeshare.model.UserDto;
 import hr.algebra.recipeshare.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -41,6 +43,12 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        LoginResponse response = userService.login(request);
+        return ResponseEntity.ok(response);
     }
 }
 

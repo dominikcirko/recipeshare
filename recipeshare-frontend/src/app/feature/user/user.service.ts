@@ -1,4 +1,3 @@
-// src/app/features/users/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,9 +27,5 @@ export class UserService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  login(credentials: UserLogin): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('/api/login', credentials);
   }
 }

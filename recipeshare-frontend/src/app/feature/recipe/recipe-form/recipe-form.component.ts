@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
+import { LoginService } from '../../user/login-form/login.service';
 
 @Component({
   selector: 'app-recipe-form',
@@ -21,6 +22,7 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
+    private loginService: LoginService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -95,7 +97,7 @@ export class RecipeFormComponent implements OnInit {
       this.isSubmitting = true;
       const recipeData: Recipe = {
         ...this.recipeForm.value,
-        userId: 1 // TODO: Replace with actual logged-in user ID from auth service
+        userId: this.loginService.getCurrentUserId()
       };
 
       const operation = this.isEditMode && this.recipeId

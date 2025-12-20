@@ -1,4 +1,3 @@
-// src/app/features/recipes/recipe.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
@@ -17,7 +16,6 @@ export class RecipeService {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
-  // TODO: Replace with actual backend endpoint that gets recipes by userId
   getRecipesByIds(ids: number[]): Observable<Recipe[]> {
     const requests = ids.map(id =>
       this.http.get<Recipe>(`${this.apiUrl}/${id}`).pipe(
@@ -43,5 +41,9 @@ export class RecipeService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getRecipesByUserId(userId: number): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`/api/recipe/users/${userId}`);
   }
 }

@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.Optional;
 
 public abstract class AbstractCrud<E, DTO> implements
-        Readable<DTO>, Creatable<DTO> {
+        Readable<DTO>, Creatable<DTO, Updatable<DTO>, Deletable > {
 
     private final JpaRepository<E, Long> baseRepository;
     private final GenericMapper<DTO, E> mapper;

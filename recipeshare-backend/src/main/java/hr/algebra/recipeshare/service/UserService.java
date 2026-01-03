@@ -26,6 +26,7 @@ public class UserService extends AbstractCrud<UserEntity, UserDto> {
 
     @Override
     protected void preCreate(UserEntity entity, UserDto userDto) {
+        super.preCreate(entity, userDto);
         entity.setPasswordHash(passwordEncoder.encode(userDto.getPasswordHash()));
     }
 

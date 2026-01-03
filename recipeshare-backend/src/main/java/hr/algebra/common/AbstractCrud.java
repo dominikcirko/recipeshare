@@ -66,12 +66,15 @@ public abstract class AbstractCrud<E, DTO>{
     }
 
     protected void preCreate(E entity, DTO dto) {
+        LoggerSingleton.INSTANCE.debug("Calling preCreate for: " + entity.getClass().getSimpleName());
         // intentionally empty
     }
     protected void preUpdate(E entity) {
+        LoggerSingleton.INSTANCE.debug("Calling preUpdate" + entity.getClass().getSimpleName());
         // intentionally empty
     }
     protected void preDelete(E entity) {
+        LoggerSingleton.INSTANCE.debug("Calling preDelete"  + entity.getClass().getSimpleName());
         // intentionally empty
     }
 
@@ -81,6 +84,12 @@ public abstract class AbstractCrud<E, DTO>{
 
     protected GenericMapper<DTO, E> getMapper() {
         return mapper;
+    }
+
+    // find entity by its id, given by DTO
+    protected <T> T ref(JpaRepository<T, Long> repo, Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found: " + id));
     }
 }
 

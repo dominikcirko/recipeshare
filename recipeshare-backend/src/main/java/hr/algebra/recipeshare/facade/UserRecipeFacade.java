@@ -25,9 +25,10 @@ public class UserRecipeFacade {
         UserDto savedUser = userService.create(userDto);
 
         List<RecipeDto> savedRecipes = recipes.stream()
-                .peek(r -> r.setUserId(savedUser.getId()))
-                .map(recipeService::create)
-                .toList();
+                .map(r -> {
+                    r.setUserId(savedUser.getId());
+                    return recipeService.create(r);
+                }).toList();
 
         return new UserWithRecipesDto(savedUser, savedRecipes);
     }

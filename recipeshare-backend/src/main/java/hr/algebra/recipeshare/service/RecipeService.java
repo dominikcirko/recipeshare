@@ -7,6 +7,7 @@ import hr.algebra.recipeshare.dao.repository.RecipeJpaRepository;
 import hr.algebra.recipeshare.dao.repository.UserJpaRepository;
 import hr.algebra.recipeshare.mapper.RecipeMapper;
 import hr.algebra.recipeshare.model.RecipeDto;
+import hr.algebra.recipeshare.model.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +34,11 @@ public class RecipeService extends AbstractCrud<RecipeEntity, RecipeDto> {
 
     @Override
     protected void preCreate(RecipeEntity entity, RecipeDto dto) {
-        UserEntity user = userJpaRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        entity.setUser(user);
+        super.preCreate(entity, dto);
+        applyReferences(entity, dto);
+    }
+
+    private void applyReferences(RecipeEntity entity, RecipeDto dto){
+        entity.setUser(ref(userJpaRepository, dto.getUserId()));
     }
 }

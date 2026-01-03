@@ -127,6 +127,44 @@
     }
   }
 
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .sort-label {
+      color: #2d3748;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-sort {
+      background-color: #e2e8f0;
+      color: #2d3748;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+
+      &:hover {
+        background-color: #cbd5e0;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
   .recipe-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

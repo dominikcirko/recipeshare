@@ -1,5 +1,8 @@
 package hr.algebra.recipeshare.controller;
 
+import hr.algebra.recipeshare.facade.CreateUserWithRecipesRequest;
+import hr.algebra.recipeshare.facade.UserRecipeFacade;
+import hr.algebra.recipeshare.facade.UserWithRecipesDto;
 import hr.algebra.recipeshare.mapper.UserMapper;
 import hr.algebra.recipeshare.model.LoginRequest;
 import hr.algebra.recipeshare.model.LoginResponse;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserRecipeFacade userRecipeFacade;
     private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserRecipeFacade userRecipeFacade, UserMapper userMapper) {
         this.userService = userService;
+        this.userRecipeFacade = userRecipeFacade;
         this.userMapper = userMapper;
     }
 
@@ -50,5 +55,16 @@ public class UserController {
         LoginResponse response = userService.login(request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/with-recipes")
+    public UserWithRecipesDto getWithRecipes(@PathVariable Long id) {
+        return userRecipeFacade.getUserWithRecipes(id);
+    }
+
+    @PostMapping("/with-recipes")
+    public UserWithRecipesDto createWithRecipes(@RequestBody CreateUserWithRecipesRequest request) {
+        return userRecipeFacade.createUserWithRecipes(request.getUserDto(), request.getRecipes());
+    }
+
 }
 

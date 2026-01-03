@@ -37,6 +37,13 @@
   }
 
   @if (!isLoading && !error && recipes.length > 0) {
+    <div class="sort-controls">
+      <span class="sort-label">Sort by:</span>
+      <button class="btn-sort" (click)="sortByTitle()">Title</button>
+      <button class="btn-sort" (click)="sortByCookTime()">Cook Time</button>
+      <button class="btn-sort" (click)="sortByCalories()">Calories</button>
+    </div>
+
     <div class="recipe-grid">
       @for (recipe of recipes; track recipe.id) {
         <div class="recipe-card" (click)="onRecipeClick(recipe.id!)">

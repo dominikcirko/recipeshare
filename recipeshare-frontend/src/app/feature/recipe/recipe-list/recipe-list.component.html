@@ -1,9 +1,17 @@
 <div class="recipe-list-container">
   <div class="recipe-list-header">
     <h1>My Recipes</h1>
-    <button class="btn-create-new" (click)="onCreateNew()">
-      + Create New Recipe
-    </button>
+    <div class="header-actions">
+      <button class="btn-create-new" (click)="onCreateNew()">
+        + Create New Recipe
+      </button>
+      @if (currentUser) {
+        <div class="user-profile" (click)="onProfileClick()">
+          <img [src]="getAvatarUrl()" alt="Profile" class="profile-avatar" />
+          <span class="profile-username">{{ currentUser.username }}</span>
+        </div>
+      }
+    </div>
   </div>
 
   @if (isLoading) {

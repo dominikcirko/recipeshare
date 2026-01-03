@@ -18,45 +18,45 @@ public abstract class AbstractCrud<E, DTO>{
     }
 
     public Optional<DTO> findById(Long id) {
-        LoggerSingletonEnum.INSTANCE.debug("Calling findById for: " + id);
+        LoggerSingleton.INSTANCE.debug("Calling findById for id: " + id);
         return baseRepository.findById(id).map(mapper::toDto);
     }
 
     @Transactional
     public DTO create(DTO dto) {
-        LoggerSingletonEnum.INSTANCE.debug("Calling create");
+        LoggerSingleton.INSTANCE.debug("Calling create");
         E entity = mapper.dtoToEntity(dto);
         this.preCreate(entity, dto);
         E saved = baseRepository.save(entity);
-        LoggerSingletonEnum.INSTANCE.info("Entity created");
+        LoggerSingleton.INSTANCE.info("Created: " + entity.getClass().getSimpleName());
         return mapper.toDto(saved);
     }
 
     @Transactional
     public DTO update(Long id, DTO dto) {
-        LoggerSingletonEnum.INSTANCE.debug("Calling update");
+        LoggerSingleton.INSTANCE.debug("Calling update");
         E existing = baseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found: " + id));
 
         E updated = updateEntity(existing, dto);
         this.preUpdate(updated);
         E saved = baseRepository.save(updated);
-        LoggerSingletonEnum.INSTANCE.info("Entity updated");
+        LoggerSingleton.INSTANCE.info("Updated: " + saved.getClass().getSimpleName());
         return mapper.toDto(saved);
     }
 
     public void delete(Long id) {
-        LoggerSingletonEnum.INSTANCE.debug("Calling delete");
+        LoggerSingleton.INSTANCE.debug("Calling delete");
         E entity = baseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found: " + id));
         this.preDelete(entity);
         if (entity instanceof SoftDeletableEntity sd){
             sd.setDeletedAt(Instant.now());
-            LoggerSingletonEnum.INSTANCE.info("Entity soft deleted");
+            LoggerSingleton.INSTANCE.info("Deleted: " + entity.getClass().getSimpleName());;
         }
         else{
             baseRepository.deleteById(id);
-            LoggerSingletonEnum.INSTANCE.info("Entity hard deleted");
+            LoggerSingleton.INSTANCE.info("Entity hard deleted");
         }
     }
 

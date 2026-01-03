@@ -1,0 +1,41 @@
+### Create a user with recipes
+POST http://localhost:8080/api/users/with-recipes
+Content-Type: application/json
+
+{
+  "userDto": {
+    "username": "jane_doe23546",
+    "email": "jan5e2463@example.com",
+    "passwordHash": "securePass",
+    "bio": "I bake cakes",
+    "avatarUrl": "https://example.com/avatar2.jpg"
+  },
+  "recipes": [
+    {
+      "title": "Chocolate Cake",
+      "description": "Delicious chocolate cake",
+      "instructions": "Mix, bake, eat",
+      "cookTimeMinutes": 60,
+      "ingredients": "Flour, Sugar, Cocoa, Eggs, Butter",
+      "calories": 500,
+      "protein": 6,
+      "fat": 20,
+      "carbs": 75
+    },
+    {
+      "title": "Pasta Salad",
+      "description": "Healthy salad",
+      "instructions": "Boil pasta, mix veggies, serve",
+      "cookTimeMinutes": 20,
+      "ingredients": "Pasta, Tomato, Cucumber, Olive oil",
+      "calories": 300,
+      "protein": 10,
+      "fat": 8,
+      "carbs": 45
+    }
+  ]
+}
+
+### Get a user with recipes
+GET http://localhost:8080/api/users/22/with-recipes
+Accept: application/json

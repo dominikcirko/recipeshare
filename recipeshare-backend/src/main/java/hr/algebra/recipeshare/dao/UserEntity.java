@@ -1,13 +1,13 @@
 package hr.algebra.recipeshare.dao;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import hr.algebra.common.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")

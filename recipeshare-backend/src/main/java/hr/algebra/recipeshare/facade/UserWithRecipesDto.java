@@ -2,11 +2,17 @@ package hr.algebra.recipeshare.facade;
 
 import hr.algebra.recipeshare.model.RecipeDto;
 import hr.algebra.recipeshare.model.UserDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserWithRecipesDto {
 
     private Long userId;

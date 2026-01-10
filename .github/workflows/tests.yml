@@ -81,4 +81,7 @@ jobs:
           java-version: 25
 
       - name: Run all backend tests
-        run: ./mvnw clean verify
+        run: |
+        cd recipeshare-backend
+        ./mvnw clean verify
+        

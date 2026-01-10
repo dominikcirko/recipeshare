@@ -79,6 +79,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+      - name: Make mvnw executable
+        run: chmod +x ./recipeshare-backend/mvnw
 
       - name: Run all backend tests
         run: |

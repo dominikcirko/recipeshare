@@ -82,6 +82,6 @@ jobs:
 
       - name: Run all backend tests
         run: |
-        cd recipeshare-backend
-        ./mvnw clean verify
+          cd recipeshare-backend
+          ./mvnw clean verify
         

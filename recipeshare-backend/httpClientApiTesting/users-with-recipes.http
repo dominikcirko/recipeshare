@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "userDto": {
-    "username": "jane_doe23546",
-    "email": "jan5e2463@example.com",
+    "username": "jan2e_doe23546",
+    "email": "ja2n5e2463@example.com",
     "passwordHash": "securePass",
     "bio": "I bake cakes",
     "avatarUrl": "https://example.com/avatar2.jpg"
@@ -37,5 +37,5 @@ Content-Type: application/json
 }
 
 ### Get a user with recipes
-GET http://localhost:8080/api/users/22/with-recipes
+GET http://localhost:8080/api/users/27/with-recipes
 Accept: application/json

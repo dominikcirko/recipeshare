@@ -2,6 +2,7 @@ package hr.algebra.common;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +12,7 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @MappedSuperclass
 public abstract class AbstractEntity implements SoftDeletableEntity {
 

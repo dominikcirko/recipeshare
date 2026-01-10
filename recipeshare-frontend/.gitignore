@@ -38,6 +38,7 @@ testem.log
 /typings
 __screenshots__/
 package-lock.json
+package.json
 
 # System files
 .DS_Store

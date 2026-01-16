@@ -19,7 +19,6 @@ export class UserEditFormComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
   successMessage: string | null = null;
-  currentPasswordHash: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -60,8 +59,6 @@ export class UserEditFormComponent implements OnInit {
     this.userService.getById(this.userId).subscribe({
       next: (user: User) => {
         console.log('User loaded successfully:', user);
-        // Store the password hash to send back with updates
-        this.currentPasswordHash = user.passwordHash || '';
         this.userForm.patchValue({
           username: user.username,
           email: user.email,
@@ -73,8 +70,7 @@ export class UserEditFormComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading user:', error);
-        console.error('Error details:', error.error);
-        this.error = `Failed to load user data: ${error.message || error.error?.message || 'Unknown error'}`;
+        this.error = 'Failed to load user data. Please try again later.';
         this.isLoading = false;
         this.cdr.detectChanges();
       }
@@ -84,14 +80,11 @@ export class UserEditFormComponent implements OnInit {
   onSubmit(): void {
     if (this.userForm.invalid || !this.userId) return;
 
-    // Send complete user object with existing password hash
-    const updatedUser: User = {
-      id: this.userId,
+    const updatedUser: UserEdit = {
       username: this.userForm.value.username,
       email: this.userForm.value.email,
       bio: this.userForm.value.bio || '',
-      avatarUrl: this.userForm.value.avatarUrl || '',
-      passwordHash: this.currentPasswordHash
+      avatarUrl: this.userForm.value.avatarUrl || ''
     };
     console.log('Submitting user update:', updatedUser);
     console.log('User ID:', this.userId);

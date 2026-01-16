@@ -87,7 +87,7 @@ export class RecipeFormComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error deleting recipe:', error);
-        alert(`Failed to delete recipe: ${error.error?.message || error.message || 'Unknown error'}`);
+        alert('Failed to delete recipe. Please try again later.');
       }
     });
   }
@@ -115,13 +115,7 @@ export class RecipeFormComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error saving recipe:', error);
-          console.error('Error details:', {
-            status: error.status,
-            statusText: error.statusText,
-            message: error.error?.message || error.message,
-            url: error.url
-          });
-          alert(`Failed to save recipe: ${error.error?.message || error.message || 'Unknown error'}`);
+          alert('Failed to save recipe. Please try again later.');
           this.isSubmitting = false;
         }
       });

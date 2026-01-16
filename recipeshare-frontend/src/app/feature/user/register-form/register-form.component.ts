@@ -53,9 +53,9 @@ export class RegisterComponent implements OnInit {
       next: () => {
         this.router.navigate(['/login']);
       },
-      error: (err: { error: { message: string; }; }) => {
+      error: () => {
         this.isSubmitting = false;
-        this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
+        this.errorMessage = 'Registration failed. Please try again.';
       }
     });
   }

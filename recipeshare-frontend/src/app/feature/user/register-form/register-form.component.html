@@ -40,13 +40,13 @@
       </div>
 
       <div class="form-group">
-        <label for="passwordHash">Password</label>
+        <label for="password">Password</label>
         <input
-          type="passwordHash"
-          id="passwordHash"
+          type="password"
+          id="password"
           formControlName="passwordHash"
           [class.invalid]="f['passwordHash'].invalid && f['passwordHash'].touched"
-          placeholder="Enter your passwordHash"
+          placeholder="Enter your password"
         />
         <span class="error-text" *ngIf="f['passwordHash'].invalid && f['passwordHash'].touched">
           Password is required

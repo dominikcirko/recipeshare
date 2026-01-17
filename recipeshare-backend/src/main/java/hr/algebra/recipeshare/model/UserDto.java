@@ -1,5 +1,6 @@
 package hr.algebra.recipeshare.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -10,6 +11,7 @@ public class UserDto {
     private Long id;
     private String username;
     private String email;
+    @JsonIgnore
     private String passwordHash;
     private String bio;
     private String avatarUrl;

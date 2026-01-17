@@ -7,6 +7,7 @@ import hr.algebra.recipeshare.mapper.UserMapper;
 import hr.algebra.recipeshare.model.LoginRequest;
 import hr.algebra.recipeshare.model.LoginResponse;
 import hr.algebra.recipeshare.model.UserDto;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,10 @@ public class UserService extends AbstractCrud<UserEntity, UserDto> {
 
     public LoginResponse login(LoginRequest request) {
         UserEntity user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new BadCredentialsException("Invalid credentials");
         }
 
         String token = jwtService.generateToken(user.getUsername());

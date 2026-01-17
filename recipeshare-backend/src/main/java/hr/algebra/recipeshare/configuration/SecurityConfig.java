@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .contentSecurityPolicy(csp -> csp
                                 .policyDirectives("default-src 'self'; " +
                                         "script-src 'self'; " +
+                                        "style-src 'self' 'unsafe-inline'; " +
                                         "style-src 'self'; " +
                                         "img-src 'self'; " +
                                         "font-src 'self'; " +
